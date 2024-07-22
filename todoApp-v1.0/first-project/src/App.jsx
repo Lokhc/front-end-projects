@@ -116,7 +116,7 @@ class CreateList extends React.Component {
   }
 
   render() {
-    const tasks = this.state.todo.map((task) => <ListItem key={task.id} title={task.title} desc={task.desc} date={task.date} handleEdit={this.handleEdit} handleDelete={this.handleDelete} id={task.id} />);
+    const tasks = this.state.todo.map((task) => <ListItem key={task.id} handleEdit={this.handleEdit} handleDelete={this.handleDelete} task={task} />);
 
     const List = <ul className='list'> {tasks} </ul>;
     const EmptyList = <><div className='no-items-box'><i className="bi bi-list-task"></i></div></>
@@ -156,21 +156,15 @@ class CreateList extends React.Component {
 function ListItem(props) {
 
   const editTask = () => {
-    const taskID = props.id;
+    const taskID = props.task.id;
     const handleEdit = props.handleEdit;
     handleEdit(taskID);
   }
 
   const deleteTask = () => {
-    const taskID = props.id;
+    const taskID = props.task.id;
     const handleDelete = props.handleDelete;
     handleDelete(taskID);
-  }
-
-  const selectItem = (event) => {
-    const parent = event.target.parentElement;
-    console.log(parent);
-    parent.style.borderColor = "red";
   }
 
   return (
@@ -180,9 +174,9 @@ function ListItem(props) {
           <button className='item-btn edit-btn' onClick={editTask}>edit</button>
           <button className='item-btn delete-btn' onClick={deleteTask}>delete</button>
         </div>
-        <div className='item-info' onClick={selectItem} >
-          <p className='item-title'>{props.title} <span>{props.date}</span></p>
-          <p>{props.desc}</p>
+        <div className='item-info'>
+          <p className='item-title'>{props.task.title} <span>{props.task.date}</span></p>
+          <p>{props.task.desc}</p>
         </div>
       </div>
     </li>
@@ -190,11 +184,3 @@ function ListItem(props) {
 }
 
 export default App
-
-/* 
-border-color: #0000ff52;
-box-shadow: inset 0 0 2px 0px blue;
-
-1427_00@
-
-*/
