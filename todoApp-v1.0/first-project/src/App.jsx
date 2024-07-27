@@ -13,7 +13,7 @@ function App() {
   );
 }
 
-const taskStyle = {
+const highlightBrdr = {
   borderColor: '#0000ff52',
   boxShadow: 'inset 0 0 2px 0px blue',
 }
@@ -29,6 +29,7 @@ class CreateList extends React.Component {
       btn_text: 'add task',
       edit_task: false,
       task_id: '',
+      selected_task_id: null,
     }
 
     this.inputRef = React.createRef();
@@ -37,6 +38,7 @@ class CreateList extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleTaskSelection = this.handleTaskSelection.bind(this);
   }
 
   handleChange(event) {
@@ -115,8 +117,14 @@ class CreateList extends React.Component {
     });
   }
 
+  handleTaskSelection(taskID) {
+    this.setState({
+      selected_task_id: taskID,
+    });
+  }
+
   render() {
-    const tasks = this.state.todo.map((task) => <ListItem key={task.id} handleEdit={this.handleEdit} handleDelete={this.handleDelete} task={task} />);
+    const tasks = this.state.todo.map((task) => <ListItem key={task.id} handleEdit={this.handleEdit} handleDelete={this.handleDelete} handleTaskSelection={this.handleTaskSelection} task={task} selected_task_id={this.state.selected_task_id} />);
 
     const List = <ul className='list'> {tasks} </ul>;
     const EmptyList = <><div className='no-items-box'><i className="bi bi-list-task"></i></div></>
@@ -167,6 +175,11 @@ function ListItem(props) {
     handleDelete(taskID);
   }
 
+  const selectTask = () => {
+    const handleTaskSelection = props.handleTaskSelection;
+    handleTaskSelection(props.task.id === props.id ? null : props.task.id);
+  }
+
   return (
     <li className='list-item'>
       <div className='item'>
@@ -174,9 +187,13 @@ function ListItem(props) {
           <button className='item-btn edit-btn' onClick={editTask}>edit</button>
           <button className='item-btn delete-btn' onClick={deleteTask}>delete</button>
         </div>
-        <div className='item-info'>
-          <p className='item-title'>{props.task.title} <span>{props.task.date}</span></p>
-          <p>{props.task.desc}</p>
+        <div
+          className='item-info'
+          onClick={selectTask}
+          style={props.task.id === props.selected_task_id ? highlightBrdr : { borderColor: 'gray' }}>
+
+          <p className='item-title'>{props.task.title} <span className='item-date'>{props.task.date}</span></p>
+          <p className='item-desc'>{props.task.desc}</p>
         </div>
       </div>
     </li>
