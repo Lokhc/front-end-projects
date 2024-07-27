@@ -39,6 +39,7 @@ class CreateList extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleTaskSelection = this.handleTaskSelection.bind(this);
+    this.handleDocumentClick = this.handleDocumentClick.bind(this);
   }
 
   handleChange(event) {
@@ -121,6 +122,28 @@ class CreateList extends React.Component {
     this.setState({
       selected_task_id: taskID,
     });
+  }
+
+  handleDocumentClick(event) {
+    const target = event.target;
+    const itemInfo = target.classList.contains('item-info');
+    const itemTitle = target.classList.contains('item-title');
+    const itemDesc = target.classList.contains('item-desc');
+    const itemDate = target.classList.contains('item-date');
+
+    if (this.state.selected_task_id && !itemInfo && !itemTitle && !itemDesc && !itemDate) {
+      this.setState({
+        selected_task_id: null,
+      });
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleDocumentClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClick);
   }
 
   render() {
