@@ -124,6 +124,7 @@ class CreateList extends React.Component {
     });
   }
 
+  // disables task highlighting
   handleDocumentClick(event) {
     const target = event.target;
     const itemInfo = target.classList.contains('item-info');
@@ -131,10 +132,14 @@ class CreateList extends React.Component {
     const itemDesc = target.classList.contains('item-desc');
     const itemDate = target.classList.contains('item-date');
 
-    if (this.state.selected_task_id && !itemInfo && !itemTitle && !itemDesc && !itemDate) {
-      this.setState({
-        selected_task_id: null,
-      });
+    const editBtn = target.classList.contains('edit-btn');
+
+    if (this.state.selected_task_id && !itemInfo && !itemTitle && !itemDesc && !itemDate && !editBtn) {
+      if (!this.state.edit_task) {
+        this.setState({
+          selected_task_id: null,
+        });
+      }
     }
   }
 
@@ -200,7 +205,7 @@ function ListItem(props) {
 
   const selectTask = () => {
     const handleTaskSelection = props.handleTaskSelection;
-    handleTaskSelection(props.task.id === props.id ? null : props.task.id);
+    handleTaskSelection(props.task.id);
   }
 
   return (
