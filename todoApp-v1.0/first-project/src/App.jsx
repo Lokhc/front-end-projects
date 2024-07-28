@@ -152,7 +152,7 @@ class CreateList extends React.Component {
   }
 
   render() {
-    const tasks = this.state.todo.map((task) => <ListItem key={task.id} handleEdit={this.handleEdit} handleDelete={this.handleDelete} handleTaskSelection={this.handleTaskSelection} task={task} selected_task_id={this.state.selected_task_id} edit_task={this.state.edit_task}/>);
+    const tasks = this.state.todo.map((task) => <ListItem key={task.id} handleEdit={this.handleEdit} handleDelete={this.handleDelete} handleTaskSelection={this.handleTaskSelection} task={task} selected_task_id={this.state.selected_task_id} edit_task={this.state.edit_task} />);
 
     const List = <ul className='list'> {tasks} </ul>;
     const EmptyList = <><div className='no-items-box'><i className="bi bi-list-task"></i></div></>
@@ -212,13 +212,13 @@ function ListItem(props) {
     <li className='list-item'>
       <div className='item'>
         <div className='item-btn-container'>
-          <button className='item-btn edit-btn' onClick={editTask}>edit</button>
+          <button className='item-btn edit-btn' style={props.edit_task ? { opacity: props.task.id === props.selected_task_id ? '1' : null } : null} onClick={editTask}>edit</button>
           <button className='item-btn delete-btn' onClick={deleteTask}>delete</button>
         </div>
         <div
           className='item-info'
           onClick={!props.edit_task ? selectTask : null}
-          style={props.task.id === props.selected_task_id ? highlightBrdr : { borderColor: 'gray' }}>
+          style={props.task.id === props.selected_task_id ? highlightBrdr : { borderColor: '#e9e6e6' }}>
 
           <p className='item-title'>{props.task.title} <span className='item-date'>{props.task.date}</span></p>
           <p className='item-desc'>{props.task.desc}</p>
