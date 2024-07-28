@@ -26,6 +26,7 @@
   padding-left: 10px;
   border: 1px solid #c9c7c7;
   border-radius: 3px;
+  transition: border-color 0.2s ease;
 }
 
 .item-btn-container {
