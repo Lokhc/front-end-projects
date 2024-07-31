@@ -1,7 +1,13 @@
+#root {
+  display: flex;
+  justify-content: center;
+}
+
 .container {
   max-width: 40rem;
   border-radius: 5px;
   margin: 1rem;
+  flex: 1;
 }
 
 .header {
@@ -89,6 +95,10 @@
 }
 
 .add-item-btn:active {
+  outline: 2px solid gray;
+}
+
+.add-item-btn:focus {
   outline: 2px solid gray;
 }
 

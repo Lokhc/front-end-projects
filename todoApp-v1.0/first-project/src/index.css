@@ -11,6 +11,11 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+h1 {
+  margin: 0 1.2rem 1.2rem 1.2rem;
+  text-align: center;
+}
+
 h2 {
   text-align: center;
 }
