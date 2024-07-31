@@ -82,11 +82,14 @@ class CreateList extends React.Component {
           desc: '',
           todo: [...this.state.todo, { title: title, desc: desc, date: new Date().toLocaleString(), id: self.crypto.randomUUID() }]
         });
+        // focus title input
+        this.inputRef.current.focus();
       }
 
     } else {
       // if the input fields are empty
       alert('enter all values');
+      this.inputRef.current.focus();
     }
   }
 
@@ -103,6 +106,9 @@ class CreateList extends React.Component {
     });
 
     this.inputRef.current.focus();
+
+    // highlight task
+    this.handleTaskSelection(taskID);
   }
 
   handleDelete(taskID) {
